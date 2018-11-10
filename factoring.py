@@ -102,4 +102,4 @@ print(f" Second factor is : {b} ->",int(b, 2))
 # The cycle repeats for some number of samples specified by the user in the num_reads parameter, and returns one solution per sample. The total time to complete the requested number of samples is returned by the QPU as qpu_sampling_time.
 total_time = response._info["timing"]["qpu_sampling_time"]
 print(f"Total Time taken : {total_time} ns.")
-print("Average Time: ", total_time/reads_count)
+print(f"Average Time for {reads_count} samples: ", total_time/reads_count, " ns.")

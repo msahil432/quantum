@@ -2,6 +2,8 @@
 
 P = 13*11
 
+print(f"Factoring {P} using While Loop:\n\n")
+
 import time
 before = time.time()
 
@@ -11,8 +13,8 @@ while (i < (P/2)):
         break
     i=i+1
 
-print("Factors are: ",i, P/i)
+print("Factors are: ",i, P/i, "\n")
 after = time.time()
 print("Before: ", "%.20f" % before)
 print("After:  ","%.20f" % after)
-print("Time Taken: ", "%.15f" % ((after-before)*1000000000))
+print("Time Taken: ", "%.15f" % ((after-before)*1000000000), " ns.")
