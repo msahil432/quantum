@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-P = 13*11
+P = 3*7
 
 print(f"Factoring {P} using While Loop:\n\n")
 
