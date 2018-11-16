@@ -97,6 +97,9 @@ def factorize(P, leng, reads_count):
     if 'answer_mode' in sampler.parameters:
         kwargs['answer_mode'] = 'histogram'
 
+    kwargs['programming_thermalization'] = 1000
+    kwargs['reduce_intersample_correlation'] = True
+
     # print("\n Sampling on Quantum Computer...")
     response = sampler.sample(bqm_embedded, **kwargs)
 
@@ -105,15 +108,9 @@ def factorize(P, leng, reads_count):
     # print("\n Mapping Response back to BQM...")
     response = dimod.unembed_response(response, embedding, source_bqm=bqm)
 
-    #print("\nThe solution in problem variables: \n",next(response.data(fields=['sample'])))
-
-    # print("\n Selecting correct sample:")
-    i = 1
     correct = 0
-    while (i<=reads_count):
-        sample = next(response.samples(n=1))
-        i=i+1
-
+    samples = iter(response.samples())
+    for sample in samples:
         a=""
         b=""
 
@@ -123,13 +120,6 @@ def factorize(P, leng, reads_count):
         if (P%int(a,2)!=0):
             continue
         
-        # print(f"\n First factor is : {a} ->",int(a, 2))
-
-        for val in list(second):
-            b+=str(sample[val])
-        # print(f" Second factor is : {b} ->",int(b, 2))
-        
-        #break
         correct = correct+1
 
 
@@ -159,7 +149,7 @@ def factorize(P, leng, reads_count):
         # print("After:  ","%.20f" % after)
         # print("Time Taken: ", "%.15f" % classic, " ns.")
 
-    print(fixed_variables.items())
+    #print(fixed_variables.items())
 
     print(leng, "\t", 
     i,"\t", 
@@ -168,12 +158,13 @@ def factorize(P, leng, reads_count):
     len(fixed_variables.items()),"\t",
     p_time, "\t",
     s_time, "\t",
-    correct, "\t\t",
+    correct, "\t",
     classic)
 
 print("""Bits \t First \t Sec \t reads\t q_bits\t p_time\t s_time\t correct \t classic""")
-factorize(13*17, 10, 1000)
-# factorize(5*7, 6, 10)
-# factorize(7*11, 8, 10)
-# factorize(11*13, 8, 10)
+
+factorize(37*31, 12, 1000)
+factorize(5*7, 6, 10)
+factorize(7*11, 8, 10)
+factorize(11*13, 8, 10)
 

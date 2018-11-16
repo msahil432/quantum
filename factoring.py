@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 ## Initialization
-P = 3*7
+P = 3*5
 digits = "{:06b}"
 size = 3
-vars = ['p0', 'p1', 'p2', 'p3', 'p4', 'p5']#, 'p6', 'p7', 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15']#, 'p16', 'p17', 'p18', 'p19', 'p20', 'p21', 'p22', 'p23', 'p24', 'p25', 'p26', 'p27', 'p28', 'p29', 'p30', 'p31']
-first = ['a0', 'a1', 'a2']#, 'a3', 'a4', 'a5', 'a6', 'a7']#, 'a8']#, 'a9', 'a10', 'a11']#, 'a12', 'a13', 'a14', 'a15']
-second = ['b0', 'b1', 'b2']#, 'b3', 'b4', 'b5', 'b6', 'b7']#, 'b8']#, 'b9', 'b10', 'b11']#, 'b12', 'b13', 'b14', 'b15']
+vars = ['p0', 'p1', 'p2', 'p3', 'p4', 'p5']#, 'p6', 'p7']#, 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15']#, 'p16', 'p17', 'p18', 'p19', 'p20', 'p21', 'p22', 'p23', 'p24', 'p25', 'p26', 'p27', 'p28', 'p29', 'p30', 'p31']
+first = ['a0', 'a1', 'a2']#, 'a3']#, 'a4', 'a5', 'a6', 'a7']#, 'a8']#, 'a9', 'a10', 'a11']#, 'a12', 'a13', 'a14', 'a15']
+second = ['b0', 'b1', 'b2']#, 'b3']#, 'b4', 'b5', 'b6', 'b7']#, 'b8']#, 'b9', 'b10', 'b11']#, 'b12', 'b13', 'b14', 'b15']
 first.reverse()
 second.reverse()
-reads_count = 1000
+reads_count = 10
 
 print(f"Factoring: {P} using {size}x{size} Multiplier:\n\n")
 
@@ -80,6 +80,9 @@ if 'num_reads' in sampler.parameters:
 if 'answer_mode' in sampler.parameters:
     kwargs['answer_mode'] = 'histogram'
 
+kwargs['programming_thermalization'] = 1000
+kwargs['reduce_intersample_correlation'] = True
+
 print("\n Sampling on Quantum Computer...")
 response = sampler.sample(bqm_embedded, **kwargs)
 
@@ -90,32 +93,28 @@ response = dimod.unembed_response(response, embedding, source_bqm=bqm)
 
 #print("\nThe solution in problem variables: \n",next(response.data(fields=['sample'])))
 
-print("\n Selecting correct sample:")
-i = 1
+print("\n Selecting correct samples:")
 correct = 0
-while (i<=reads_count):
-    sample = next(response.samples(n=1))
-    i=i+1
-
+samples = iter(response.samples())
+for sample in samples:
     a=""
     b=""
 
     for val in list(first):
         a+=str(sample[val])
-    
+
     if (P%int(a,2)!=0):
         continue
-    
-    print(f"\n First factor is : {a} ->",int(a, 2))
 
-    for val in list(second):
-        b+=str(sample[val])
-    print(f" Second factor is : {b} ->",int(b, 2))
-    
-    #break
+    if(correct == 0):
+        for val in list(second):
+            b+=str(sample[val])
+        print(f"\n First factor is : {a} ->",int(a, 2))
+        print(f" Second factor is : {b} ->",int(b, 2))
+
     correct = correct+1
 
-
+print("Correct ones:",correct)
 # The cycle repeats for some number of samples specified by the user in the num_reads parameter, and returns one solution per sample. The total time to complete the requested number of samples is returned by the QPU as qpu_sampling_time.
 total_time = response._info["timing"]["qpu_sampling_time"]
 print(f"Total Time taken : {total_time} ns.")
