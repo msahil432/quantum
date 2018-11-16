@@ -109,16 +109,24 @@ def factorize(P, leng, reads_count):
     response = dimod.unembed_response(response, embedding, source_bqm=bqm)
 
     correct = 0
+    qbits = -1
     samples = iter(response.samples())
     for sample in samples:
         a=""
         b=""
 
+        if(qbits==-1):
+            qbits = len(sample)
+
         for val in list(first):
             a+=str(sample[val])
         
         if (P%int(a,2)!=0):
-            continue
+            for val in list(second):
+                b+=str(sample[val])
+            
+            if(P%int(b,2)!=0):
+                continue
         
         correct = correct+1
 
@@ -155,7 +163,7 @@ def factorize(P, leng, reads_count):
     i,"\t", 
     P/i,"\t",
     reads_count, "\t", 
-    len(fixed_variables.items()),"\t",
+    qbits,"\t",
     p_time, "\t",
     s_time, "\t",
     correct, "\t",
@@ -163,8 +171,9 @@ def factorize(P, leng, reads_count):
 
 print("""Bits \t First \t Sec \t reads\t q_bits\t p_time\t s_time\t correct \t classic""")
 
-factorize(37*31, 12, 1000)
-factorize(5*7, 6, 10)
-factorize(7*11, 8, 10)
-factorize(11*13, 8, 10)
+factorize(241*239, 16, 1000)
+# factorize(37*31, 12, 1000)
+# factorize(5*7, 6, 10)
+# factorize(7*11, 8, 10)
+# factorize(11*13, 8, 10)
 

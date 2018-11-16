@@ -9,7 +9,7 @@ first = ['a0', 'a1', 'a2']#, 'a3']#, 'a4', 'a5', 'a6', 'a7']#, 'a8']#, 'a9', 'a1
 second = ['b0', 'b1', 'b2']#, 'b3']#, 'b4', 'b5', 'b6', 'b7']#, 'b8']#, 'b9', 'b10', 'b11']#, 'b12', 'b13', 'b14', 'b15']
 first.reverse()
 second.reverse()
-reads_count = 10
+reads_count = 100
 
 print(f"Factoring: {P} using {size}x{size} Multiplier:\n\n")
 
@@ -95,6 +95,7 @@ response = dimod.unembed_response(response, embedding, source_bqm=bqm)
 
 print("\n Selecting correct samples:")
 correct = 0
+length = -1
 samples = iter(response.samples())
 for sample in samples:
     a=""
@@ -103,12 +104,17 @@ for sample in samples:
     for val in list(first):
         a+=str(sample[val])
 
+    if(length == -1):
+        length = len(sample)
+        print("Q-bits Used: ",length)
+
     if (P%int(a,2)!=0):
-        continue
+        for val in list(second):
+                b+=str(sample[val])
+        if(P%int(b,2)!=0):
+            continue
 
     if(correct == 0):
-        for val in list(second):
-            b+=str(sample[val])
         print(f"\n First factor is : {a} ->",int(a, 2))
         print(f" Second factor is : {b} ->",int(b, 2))
 
