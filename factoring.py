@@ -55,7 +55,7 @@ print("Variable a0 in BQM: ", 'a0' in bqm)
 #from helpers.solvers import default_solver
 #my_solver, my_token = default_solver()
 my_solver = 'DW_2000Q_2_1'
-my_token = 'DEV-4d7a6f09914ed65fc27f512d0499d0ca2b344dcc'
+my_token = 'DEV-ee8c6930af28fcac5c695e94253b79e6aa8cda96'
 
 from dwave.system.samplers import DWaveSampler
 # Using D-Wave system as the sampler

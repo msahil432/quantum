@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 
-P = 3*7
+P = 227*211
 
-print(f"Factoring {P} using While Loop:\n\n")
+print(f"Factoring {P} with While Loop: ")
 
 import time
+temp = 0
 before = time.time()
-
 i = 2
 while (i < (P/2)):
     if (P%i==0):
         break
     i=i+1
 
-print("Factors are: ",i, P/i, "\n")
+# print("Factors are: ",i, P/i, "\n")
 after = time.time()
-print("Before: ", "%.20f" % before)
-print("After:  ","%.20f" % after)
-print("Time Taken: ", "%.15f" % ((after-before)*1000000000), " ns.")
+classic = ((after-before)*1000000000)
+temp = temp+1
+# print("Before: ", "%.20f" % before)
+# print("After:  ","%.20f" % after)
+print("Time:", "%.13f" % classic)
