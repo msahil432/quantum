@@ -37,4 +37,5 @@
 
 ## Links:
 [D-Wave Leap](https://docs.dwavesys.com/docs/latest/leap.html)
+
 [Original Data Sheet with Screenshots](https://docs.google.com/spreadsheets/d/1Mnlzq9NqNktos9Lj9Ny19ssbGW4tBqRpLcMn9fNjHfo/edit?usp=sharing)
