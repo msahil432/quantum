@@ -81,8 +81,8 @@ def qsample(P, embedding, bqm, bqm_embedded, sampler, reads_count, thermal):
     classic)
 
 # -----------------------------------------
-leng = 16
-P = 227*211
+leng = 6
+P = 7*7
 
 digits = "{:0"+str(leng)+"b}"
 size = int(leng/2)
@@ -123,7 +123,7 @@ for var, value in fixed_variables.items():
 #my_solver, my_token = default_solver()
 my_solver = 'DW_2000Q_2_1'
 # my_token = 'DEV-05a577c056c4609844ab17c5fdee534a323ec8fe'
-my_token = 'DEV-ee8c6930af28fcac5c695e94253b79e6aa8cda96'
+my_token = 'DEV-4d7a6f09914ed65fc27f512d0499d0ca2b344dcc'
 
 from dwave.system.samplers import DWaveSampler
 
