@@ -1,26 +1,26 @@
 # BREAKING ENCRYPTION USING QUANTUM COMPUTING
 
 ## Content Details :
-> 01-factoring-overview.ipynb - Jupyter Notebook
-Provided by D-Wave as Examples on open Jupyter Server.
+        > 01-factoring-overview.ipynb - Jupyter Notebook
+    Provided by D-Wave as Examples on open Jupyter Server.
 
-> helpers (directory)
-Provided by D-Wave, contains different functions which are necessary.
+        > helpers (directory)
+    Provided by D-Wave, contains different functions which are necessary.
 
-> factoring.py
-First derivative of D-Wave code which factorizes a number one time.
+        > factoring.py
+    First derivative of D-Wave code which factorizes a number one time.
 
-> factoring-data.py
-Major Changes made, for running Code under different parameters.
+        > factoring-data.py
+    Major Changes made, for running Code under different parameters.
 
-> test.py
-Simple Python Program which factorizes a number _n_ times using a _for_ loop.
+        > test.py
+    Simple Python Program which factorizes a number _n_ times using a _for_ loop.
 
-> graphs/dff.xlsx - Excel Sheet
-Contains derivative data set from original data, to plot different graphs.
+        > graphs/dff.xlsx - Excel Sheet
+    Contains derivative data set from original data, to plot different graphs.
 
-> view_graph.ipynb
-Python Program which uses given excel sheet to plot graphs.
+        > view_graph.ipynb
+    Python Program which uses given excel sheet to plot graphs.
 
 ## INSTRUCTIONS :
 
